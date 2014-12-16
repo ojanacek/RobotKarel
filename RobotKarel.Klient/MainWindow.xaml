@@ -1,0 +1,76 @@
+﻿<Window x:Class="RobotKarel.Klient.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:rk="clr-namespace:RobotKarel.Klient"
+        Title="Robot Karel - Klient" Height="1130" Width="1450" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Icon="Images/android.ico">
+    <Window.Resources>
+        <rk:PositionConverterX x:Key="PositionConverterX"/>
+        <rk:PositionConverterY x:Key="PositionConverterY"/>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1100"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        
+        <GroupBox Header="Město" Margin="5, 0, 0, 5" FontWeight="Bold">
+            <Canvas Name="cityCanvas">
+                <Rectangle Canvas.Left="525" Canvas.Top="525" Width="25" Height="25" Fill="Gold"/>
+                <Image Name="imgAndroid" Source="Images/android.png" Canvas.Left="{Binding Pozice.X, Converter={StaticResource ResourceKey=PositionConverterX}}" Canvas.Top="{Binding Pozice.Y, Converter={StaticResource ResourceKey=PositionConverterY}}" Height="25" Width="25"/>
+            </Canvas>
+        </GroupBox>
+
+        <GroupBox Header="Klient" Margin="5, 0, 5, 5" Grid.Column="1" FontWeight="Bold">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Content="Server" FontWeight="DemiBold"/>
+                    <TextBox Name="txbServer" Text="baryk.fit.cvut.cz" Grid.Column="1" Margin="0, 5, 10, 5" FontWeight="DemiBold"/>
+                    <Label Content="Port" Grid.Row="1" FontWeight="DemiBold"/>
+                    <TextBox Name="txbPort" Text="3999" Grid.Row="1" Grid.Column="1" Margin="0, 5, 10, 5" FontWeight="DemiBold"/>
+                    <Button Name="btnZahajitSpojeni" Content="Zahájit spojení" Grid.Row="2" Grid.Column="1" Margin="5, 0, 15, 0" Click="btnZahajitSpojeni_Click"/>
+                    <Button Name="btnNavestRobota" Content="Navést robota" Grid.Row="2" FontWeight="DemiBold" Visibility="Hidden" Margin="5, 0, 5, 0" Click="btnNavestRobota_Click"/>
+                </Grid>
+                
+                <Grid Name="robotInfo" Grid.Row="1" Margin="0, 10, 0, 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Image Source="Images/android.png" Margin="5, 0, 5, 0" Grid.RowSpan="2"/>
+                    
+                    <Label Content="Osloveni:" Grid.Column="1" FontWeight="DemiBold"/>
+                    <TextBlock Name="txblOsloveni" Grid.Column="2" Grid.ColumnSpan="3" FontWeight="DemiBold" Foreground="Green" Text="{Binding Osloveni}" Margin="0, 5, 0, 0"/>
+
+                    <Label Content="Pozice:" Grid.Row="1" Grid.Column="1" FontWeight="DemiBold"/>
+                    <TextBlock Name="txblPozice" Grid.Row="1" Grid.Column="2" FontWeight="DemiBold" Foreground="Green" Text="{Binding Pozice.PoziceVypis}" Margin="0, 5, 0, 0"/>
+                    <Label Content="Orientace:" Grid.Row="1" Grid.Column="3" FontWeight="DemiBold"/>
+                    <TextBlock Name="txblOrientace" Grid.Row="1" Grid.Column="4" FontWeight="DemiBold" Foreground="Green" Text="{Binding Pozice.Orientace}" Margin="0, 5, 0, 0"/>
+                </Grid>
+                
+                <TextBox Name="txbLog" FontWeight="Normal" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" Grid.Row="2" Margin="5, 10, 0, 10"/>
+            </Grid>            
+        </GroupBox>        
+    </Grid>
+</Window>
